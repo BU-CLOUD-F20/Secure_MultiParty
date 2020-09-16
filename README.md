@@ -29,18 +29,37 @@ MPC protocols: https://www.youtube.com/watch?v=P2MmO458xu4
   * Pierre-François Wolfe
   * Samyak Jain
   * Suli Hu
+  * Yufeng Lin
 
 # 1. Visions and Goals of the Project:
-The Cloud Computing MPC team will perform benchmarking of and provide insights on what performance improvements can be made to the MPC implementation provided by the projects mentors/sponsors John Liagouris and Vasiliki Kalavri. Accomplishing this will include:
+
+## Vision Statement
+The Cloud Computing MPC team will perform benchmarking of the MPC implementation provided by the projects mentors/sponsors John Liagouris and Vasiliki Kalavri in order to provide insights on existing bottlenecks. From there, these bottlenecks will be examined to provide actionable performance improvements.
+
+## Goals
+Accomplishing this will include:
 * Profiling the existing software on the Massachusetts Open Cloud (MOC) under different deployment configurations.
-* Performing testing while testing different communication configurations between computation parties (changing the settings for MPI or using alternatives).
-* Exploring alternatives to the current single-process per party paradigm (e.g. multiple pthreads, OpenMP, etc.).
-* Given sufficient progress on initial goals, exploring opportunities in running this MPC implementation on top of a BU developed Linux micro-kernel.
+  * VMs (OpenStack)
+    * Different OS's? Different kernels under the same OS?
+  * Containers (OpenShift)
+  * Bare Metal (OpenStack)
+* Testing different communication configurations between computation parties
+  * Changing the settings for MPI
+  * Alternatives to MPI for communicating between processing parties?
+* Exploring alternatives to the current single-process per party paradigm
+  * Multiple pthreads
+  * OpenMP
+* Provide recreatable execution configurations and tests
+  * Create launching scripts or similar
+* Stretch goals
+  * Enable running MPC implementation on top of a BU developed Linux micro-kernel
+  * Evaluate performance of MPC with the micro-kernel
 
 **__Questions:__**
 * Is the final desired state meant to be "functionally the same" but with greater performance?
   * If so, is there some performance metric either relative or absolute that we should target?
     * Would that metric be based on some specific need (being able to do x many operations in y time)?
+      * If so, add to acceptance criteria section
     * Canonical/reference tests to be used? Alternately, do these need to be developed or improved?
   * If not, what additional functionality or utility must be provided? (Some examples/ideas follow)
     * Configuration/launch tools to recreate different run scenarios on the MOC?
@@ -56,7 +75,21 @@ The Cloud Computing MPC team will perform benchmarking of and provide insights o
 
 ---
 # 2. Users/Personas of the Project:
+
+## Users/Personas of Interest
 The end-goal of this software is to be powerful and flexible enough to be attractive to non-MPC experts and provide a simple interface with greater performance than existing approachable software MPC alternatives. For the scope of this semester project however, we do not target a completely naïve user. Instead we require that a user be somewhat familiar with the concept of MPC. The goals are primarily performance oriented and are perhaps most appreciated by a more experienced user rather than a newcomer with no familiarity with the MPC offerings landscape.
+
+## Users/Personas List
+* MOC Client using MPC
+  * MPC non-expert sub-type
+  * Cloud Computing non-expert sub-type
+* Researcher using MPC on MOC
+  * Current project clients
+  * Future researchers
+  * Students
+* Other personas that may become relevant?
+  * Cloud Administrator?
+  * Providers/Individuals acting as separate MPC parties/evaluators?
 
 **__Questions:__**
 * The above statement is conjecture, please confirm it...
@@ -73,6 +106,9 @@ MPC Profiling
 * Provide researcher insights into existing codebase
   * Provide a "best" execution configuration for the existing codebase
   * Identify bottlenecks and other areas for improvement to the library as implemented.
+* Provide greater ease of use/recreation of specific modes/tests
+  * Launching scripts/configuration files
+  * A GUI could be nice but is almost certainly out of scope as outside clients of the MPC are not the primary personas for this project.
 
 **__Questions:__**
 * This will need far more detail, answering the earlier questions will help to inform this section.
@@ -80,13 +116,31 @@ MPC Profiling
 
 ---
 # 4. Solution Concept:
-* ToDo A high-level outline of the solutions
+*TODO - Add to this!*
+
+## High-level Solution Outline
 * Use a diagram to illustrate a high-level concept of the solution
   * Alternately, the appearance of the solution can be shown here if there is already an architectural diagram that exists for the project.
   * Note: Consider using LucidChart since it is available to BU students.
   * A walkthrough of the diagramed structure should exist.
 
+## Architectural Diagrams
 ![architecture_placeholder](Images/architecture_placeholder.png)
+
+*TODO - Diagram Ideas*
+* Illustrate MPC system possible implementations on MOC
+  * Software/Hardware Stack
+  * User perspective of launching an MPC evaluation
+  * Identify some primary interfaces/aspects that will be profiled
+  * Add a walkthrough explanation for all included diagrams and the system as a whole
+  * Idea: make sure to color elements that are within project scope to make them visually identifiable!
+* Make sure to identify all dependencies!
+  * Currently the only dependency is on libsodium
+  * Otherwise the software only uses standard C
+
+## Design Implications and Discussion
+*TODO - Will evolve as project scope is more clearly defined and work takes place*
+* Identify which parts of the system are of concern and which are part of another party's scope (e.g. things that are already handled by the MOC)
 
 **__Questions:__**
 * Will need to see existing code to create a better sketch of the current architecture.
@@ -110,11 +164,24 @@ MPC Profiling
 
 ---
 # 6. Release Planning:
-ToDo: This section will need to show how incremental features and functions will be delivered...
+*TODO: This section will need to show how incremental features and functions will be delivered...*
 - [ ] Identify user stories
 - [ ] Associate user stories with different releases (One "release" per sprint with 5 sprints for the project)
   * This should ease/guide sprint/planning sessions
   * The initial iteration is expected/likely to have higher-level details.
+  * Detailed user stories and plans to be detailed on [taiga](https://tree.taiga.io/project/jonathanchamberlain-performance-analysis-of-secure-multi-party-computations-in-the-cloud/timeline)
+
+## Some Preliminary Goals by Sprint:
+  * Sprint 1: September 17, 2020 - October 1, 2020
+    - [ ] *TODO*
+  * Sprint 2: October 1, 2020 - October 15, 2020
+    - [ ] *TODO*
+  * Sprint 3: October 15, 2020 - October 29, 2020
+    - [ ] *TODO*
+  * Sprint 4: October 29, 2020 - November 12, 2020
+    - [ ] *TODO*
+  * Sprint 5: November 12, 2020 - December 3, 2020
+    - [ ] *TODO*
 
 **__Questions:__**
 * After answering earlier questions this will be easier to plan
