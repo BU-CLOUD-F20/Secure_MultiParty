@@ -135,7 +135,7 @@ MPC Profiling
   * A walkthrough of the diagramed structure should exist.
 
 ## Architectural Diagrams
-![architecture_placeholder](Images/architecture_placeholder.png)
+![simple_mpc_arch](Images/simple_mpc_arch.png)
 
 *TODO - Diagram Ideas*
 * Illustrate MPC system possible implementations on MOC
