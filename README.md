@@ -24,12 +24,22 @@ MPC protocols: https://www.youtube.com/watch?v=P2MmO458xu4
 
 ---
 # Project Proposal:
-* Team Members:
-  * Hasnain Abdur Rehman
-  * Pierre-François Wolfe
-  * Samyak Jain
-  * Suli Hu
-  * Yufeng Lin
+
+## Team Members:
+Role | Name | Email
+-----|------|------
+Developer | Hasnain Abdur | hasnain@bu.edu
+Developer | Pierre-François Wolfe | pwolfe@bu.edu
+Developer | Samyak Jain | samyakj@bu.edu
+Developer | Suli Hu | sulihu@bu.edu
+Developer | Yufeng Lin | yflin@bu.edu
+Mentor/Client | John Liagouris | liagos@bu.edu
+Mentor/Client | Vasiliki Kalavri | vkalavri@bu.edu
+Subject-Matter Expert | Mayank Varia | varia@bu.edu
+
+## Team Typical Schedule:
+*Note: Times in EST*
+![team_schedule_placeholder](Images/team_schedule_placeholder.png)
 
 # 1. Visions and Goals of the Project:
 
@@ -38,7 +48,7 @@ The Cloud Computing MPC team will perform benchmarking of the MPC implementation
 
 ## Goals
 Accomplishing this will include:
-* Profiling the existing software on the Massachusetts Open Cloud (MOC) under different deployment configurations.
+* Profiling the existing software on the [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) under different deployment configurations.
   * VMs (OpenStack)
     * Different OS's? Different kernels under the same OS?
   * Containers (OpenShift)
@@ -135,7 +145,7 @@ MPC Profiling
   * Add a walkthrough explanation for all included diagrams and the system as a whole
   * Idea: make sure to color elements that are within project scope to make them visually identifiable!
 * Make sure to identify all dependencies!
-  * Currently the only dependency is on libsodium
+  * Currently the only dependency is on [libsodium](https://doc.libsodium.org/)
   * Otherwise the software only uses standard C
 
 ## Design Implications and Discussion
@@ -172,7 +182,18 @@ MPC Profiling
   * Detailed user stories and plans to be detailed on [taiga](https://tree.taiga.io/project/jonathanchamberlain-performance-analysis-of-secure-multi-party-computations-in-the-cloud/timeline)
 
 ## Some Preliminary Goals by Sprint:
+  * Pre-Sprint:
+    - [X] Establish Team Communication (Slack/Zoom)
+    - [X] Initial Mentor meeting
+    - [ ] Finalize Ongoing Meeting date (Proposed: Mondays EST 3-4PM)
+      - [ ] Additional occasional evening meeting for different time zones? Or alter proposed meeting regular meeting time?
+    - [ ] Establish Project Plan (due by September 17, 2020)
+    - [ ] Gain access to existing software ASAP
+    - [ ] MPC, MPI, and other background reading as needed by team members (additional learning "spikes" expected in Sprint 1)
   * Sprint 1: September 17, 2020 - October 1, 2020
+    - [ ] Work on task breakdown using taiga board
+    - [ ] Schedule meeting with Mayank for MPC background presentation?
+    - [ ] Gain MOC access and perform any necessary [background reading](https://docs.massopen.cloud/en/latest/home.html#) (Specifically look at the "How-Tos")
     - [ ] *TODO*
   * Sprint 2: October 1, 2020 - October 15, 2020
     - [ ] *TODO*
@@ -191,7 +212,7 @@ MPC Profiling
 
 ---
 # General Comments:
-* ToDo
+*TODO*
 * WIP Notes:
   * [Project Description Template](https://github.com/BU-NU-CLOUD-SP18/sample-project/blob/master/README.md)
   * [Example Project Description](https://github.com/BU-NU-CLOUD-SP18/sample-project/blob/master/MOC-UI-ProjectProposalExample.md)
