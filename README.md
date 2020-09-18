@@ -28,7 +28,7 @@ MPC protocols: https://www.youtube.com/watch?v=P2MmO458xu4
 ## Team Members:
 Role | Name | Email
 -----|------|------
-Developer | Hasnain Abdur | hasnain@bu.edu
+Developer | Hasnain Abdur Rehman| hasnain@bu.edu
 Developer | Pierre-François Wolfe | pwolfe@bu.edu
 Developer | Samyak Jain | samyakj@bu.edu
 Developer | Suli Hu | sulihu@bu.edu
@@ -44,19 +44,25 @@ Subject-Matter Expert | Mayank Varia | varia@bu.edu
 # 1. Visions and Goals of the Project:
 
 ## Vision Statement
-The Cloud Computing MPC team will perform benchmarking of the MPC implementation provided by the projects mentors/sponsors John Liagouris and Vasiliki Kalavri in order to provide insights on existing bottlenecks. From there, these bottlenecks will be examined to provide actionable performance improvements.
+This project aims to deploy a pure C-based implementation of a 3 party Secure Multi Party Computation on the Mass Open Cloud under various cloud-based and simple bare-metal deployment configurations. After deployment, the project will perform performance analysis on the different deployments using some standardized benchmarks, and compare the performace of Secure-MPC on the different deployments. Finally, the project will try to optimize the cloud based optimizations and search for possible bottenecks or tweaks to improve performance of the application on cloud.
 
 ## Goals
-Accomplishing this will include:
-* Profiling the existing software on the [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) under different deployment configurations.
-  * VMs (OpenStack)
-    * Different OS's? Different kernels under the same OS?
-  * Containers (OpenShift)
-  * Bare Metal (OpenStack)
-* Testing different communication configurations between computation parties
-  * Changing the settings for MPI
-  * Alternatives to MPI for communicating between processing parties?
-* Exploring alternatives to the current single-process per party paradigm
+A breakdown of the project into high level goals includes: 
+
+* Deployment of the Secure MPC on the following platforms: 
+  * Virtual Machines (using OpenStack)
+  * Containers (using OpenShift)
+  * Bare Metal Machines (using OpenStack)
+* Functionality testing and verification of the deployments.
+* Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) 
+  * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments 
+  * Writing/Coding benchmark tests for each deployment.
+  * Measuring the benchmark scores.
+  * Generate a comparison report. 
+* Design space exploration of the Secure MPC deployments to increase perfomance/benchmark scores. 
+  * Configuring MPI settings to achieve minimize communication bottleneck.
+  * Testing communication protocols other than MPI to gain performance improvement. 
+  * Exploring alternatives to the current single-process per party paradigm
   * Multiple pthreads
   * OpenMP
 * Provide recreatable execution configurations and tests
