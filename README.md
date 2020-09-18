@@ -44,7 +44,7 @@ Subject-Matter Expert | Mayank Varia | varia@bu.edu
 # 1. Visions and Goals of the Project:
 
 ## Vision Statement
-This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will perform performance analysis on the different deployments using some standardized benchmarks, and compare the performance of Secure-MPC on the different deployments. Finally, the project will try to optimize the cloud based optimizations and search for possible bottlenecks, tweaks and try to leverage cloud-environment to improve performance of the MPC on cloud.
+This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will analyze and compare the performance of these deployments using some standardized benchmarks. In addition, this project seeks to optimize the cloud based implementations by exploring the design space options for MPC while search for possible bottlenecks. Where possible, bottlenecks will be addressed to improve performance of MPC in the cloud.
 
 ## Goals
 A simplified breakdown of the project into high level goals includes:
@@ -87,33 +87,36 @@ Since this is a deployment of a specialized MPC implementation as a research-out
 ---
 # 3. Scope and Features of the Project:
 
-The project scope includes:
+## Primary Project Scope:
 
 * Deployment of the Secure MPC on the following platforms:
   * Virtual Machines (using OpenStack)
   * Containers (using OpenShift)
   * Bare Metal Machines (using OpenStack)
 * Generation of repeatable execution configurations and a generalized interface for the cloud deployments.
-  * Creating launching scripts and editing configuration files.
+  * Creating launching scripts and configuration files for launch profiles.
   * Providing greater ease of use/recreation of specific modes/tests.
-* Functionality testing and verification of the deployments.
-* Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/)
-  * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments
-  * Writing/Coding benchmark tests for each deployment.
-  * Measuring the benchmark scores.
-  * Generating a comparison report.
+* Analysis of the various MPC implementations
+  * Functionality testing and verification of the deployments.
+  * Determining the best performing deployment configuration across all deployments made.
+    * Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/)
+    * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments
+    * Writing/Coding benchmark tests for each deployment.
+    * Measuring the benchmark scores.
+    * Generating a comparison report.
 
-STRECH Features  >>>>> ???????
+## Stretch Features Scope:
+*TODO - Further Discussion Needed*
 * Design space exploration of the Secure MPC deployments to increase performance/benchmark scores.
   * Configuring MPI settings and trying different modes (sync vs async) to achieve minimal communication bottleneck.
   * Testing communication protocols other than MPI to gain performance improvement.
   * Exploring alternatives to the current single-process per party paradigm.
+     * Multithreading (e.g. OpenMP, pthreads, ...)  
   * Identifying bottlenecks and other areas for improvement to the library as implemented.
-  * Multiple pthreads ...????
-  * OpenMP ....????
-* Determining the best performing deployment configuration across all deployments made.
+* Evaluate performance of MPC implementation on top of a Linux micro-kernel
 
-The following are clearly being mentioned to be out of scope of this project:   
+## Outside of Scope:
+*The following are clearly being mentioned to be out of scope of this project*
 * A GUI for the Secure-MPC deployments (for outside clients who might want to use a generalized or configured version of the software).
 
 ---
@@ -121,7 +124,7 @@ The following are clearly being mentioned to be out of scope of this project:
 
 ## High-level Solution Outline
 
-## Architectural Diagrams
+### Architectural Diagrams
 ![simple_mpc_arch](Images/simple_mpc_arch.png)
 
 *TODO - Diagram Ideas*
@@ -154,7 +157,7 @@ The following are clearly being mentioned to be out of scope of this project:
 **__Questions:__**
 * Will this be purely or mostly performance based? What are the metrics?
 * What features or outcome is sought?
-* Can be define minimal goals (MVP) as well as stretch goals?
+* Can we define minimal goals (MVP) as well as stretch goals?
 * If this is to be conducted primarily as a survey, what is the desired minimum reasonable amount of testing to be accomplished?
 
 ---
@@ -179,7 +182,7 @@ The following are clearly being mentioned to be out of scope of this project:
     - [ ] Work on task breakdown using taiga board
     - [ ] Schedule meeting with Mayank for MPC background presentation?
     - [ ] Gain MOC access and perform any necessary [background reading](https://docs.massopen.cloud/en/latest/home.html#) (Specifically look at the "How-Tos")
-    - [ ] *TODO*
+    - [ ] Understanding the MPC codebase
   * Sprint 2: October 1, 2020 - October 15, 2020
     - [ ] *TODO*
   * Sprint 3: October 15, 2020 - October 29, 2020
