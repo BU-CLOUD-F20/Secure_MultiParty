@@ -28,7 +28,7 @@ MPC protocols: https://www.youtube.com/watch?v=P2MmO458xu4
 ## Team Members:
 Role | Name | Email
 -----|------|------
-Developer | Hasnain Abdur | hasnain@bu.edu
+Developer | Hasnain Abdur Rehman| hasnain@bu.edu
 Developer | Pierre-François Wolfe | pwolfe@bu.edu
 Developer | Samyak Jain | samyakj@bu.edu
 Developer | Suli Hu | sulihu@bu.edu
@@ -44,97 +44,97 @@ Subject-Matter Expert | Mayank Varia | varia@bu.edu
 # 1. Visions and Goals of the Project:
 
 ## Vision Statement
-The Cloud Computing MPC team will perform benchmarking of the MPC implementation provided by the projects mentors/sponsors John Liagouris and Vasiliki Kalavri in order to provide insights on existing bottlenecks. From there, these bottlenecks will be examined to provide actionable performance improvements.
+This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will analyse and compare the performance of these deployments using some standardized benchmarks. In addition, the project will try to optimize the cloud based implementations by exploring different design space alternatives for MPC and search for possible bottlenecks, tweaks and try to leverge cloud-environment to improve performance of the MPC on cloud.
 
 ## Goals
-Accomplishing this will include:
-* Profiling the existing software on the [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) under different deployment configurations.
-  * VMs (OpenStack)
-    * Different OS's? Different kernels under the same OS?
-  * Containers (OpenShift)
-  * Bare Metal (OpenStack)
-* Testing different communication configurations between computation parties
-  * Changing the settings for MPI
-  * Alternatives to MPI for communicating between processing parties?
-* Exploring alternatives to the current single-process per party paradigm
-  * Multiple pthreads
-  * OpenMP
-* Provide recreatable execution configurations and tests
-  * Create launching scripts or similar
-* Stretch goals
-  * Enable running MPC implementation on top of a BU developed Linux micro-kernel
-  * Evaluate performance of MPC with the micro-kernel
+A simplified breakdown of the project into high level goals includes:
+
+* Deployment of the Secure-MPC on multiple cloud-based and bare-metal platforms.
+* Functionality testing and verification of deployments.
+* Profiling and comparing each deployment configuration on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) with respect to some benchmark specifications.
+* Design space exploration of the Secure MPC deployments to increase perfomance/benchmark scores.
+* Determining the best performing deployment configuration acrross all deployments done.
 
 **__Questions:__**
-* Is the final desired state meant to be "functionally the same" but with greater performance?
-  * If so, is there some performance metric either relative or absolute that we should target?
-    * Would that metric be based on some specific need (being able to do x many operations in y time)?
-      * If so, add to acceptance criteria section
-    * Canonical/reference tests to be used? Alternately, do these need to be developed or improved?
-  * If not, what additional functionality or utility must be provided? (Some examples/ideas follow)
-    * Configuration/launch tools to recreate different run scenarios on the MOC?
-    * Automated testing/profiling chain to gather new data with different changes?
-    * Improved frontend?
-      * What is the current user interface and who can/can't make use of it?
-      * Are we appropriately serving the target user audience? (Domain experts, outsiders, other?)
-    * Improved backend?
-      * Different MPC evaluation?
-        * Change MPC primitives?
-        * Make modifications to derived MPC operators?
-        * Additional operators (extending functionality)?
+* Configuration/launch tools to recreate different run scenarios on the MOC?
+  * Automated testing/profiling chain to gather new data with different changes?
+  * Improved frontend? What is the current user interface and who can/can't make use of it?
+    * Are we appropriately serving the target user audience? (Domain experts, outsiders, other?)
+  * Improved backend?
+
 
 ---
 # 2. Users/Personas of the Project:
 
 ## Users/Personas of Interest
-The end-goal of this software is to be powerful and flexible enough to be attractive to non-MPC experts and provide a simple interface with greater performance than existing approachable software MPC alternatives. For the scope of this semester project however, we do not target a completely naïve user. Instead we require that a user be somewhat familiar with the concept of MPC. The goals are primarily performance oriented and are perhaps most appreciated by a more experienced user rather than a newcomer with no familiarity with the MPC offerings landscape.
+Since this is a deployment of a specialized MPC implementation as a research-output on the Mass Open Cloud, the quintenssential users of this project would be the initial MPC development team.
 
 ## Users/Personas List
-* MOC Client using MPC
-  * MPC non-expert sub-type
-  * Cloud Computing non-expert sub-type
-* Researcher using MPC on MOC
-  * Current project clients
-  * Future researchers
-  * Students
-* Other personas that may become relevant?
-  * Cloud Administrator?
-  * Providers/Individuals acting as separate MPC parties/evaluators?
-
-**__Questions:__**
-* The above statement is conjecture, please confirm it...
-  * Are we targeting a specific lowest denominator of user?
-    * Non-MPC expert?
-    * Non-Hardware expert?
-    * Casual user? (Not familiar with software development)
-  * It would seem reasonable to separate long-term desired users and users targeted for the scope of this project.
-    * If we are unsure, it would seem wisest to divide into users certain to be targeted, possible targeted, and definitely not targeted.
+* John
+* Vasia
+* John and Vasia's Research Team
+* Further users may include
+  * MOC Client using MPC
+    * MPC non-expert sub-type
+    * Cloud Computing non-expert sub-type
+  * Researchers using MPC on MOC
+    * Current project clients
+    * Future researchers
+    * Students
+    * Cloud Administrator
+    * Providers/Individuals acting as separate MPC parties/evaluators?
 
 ---
 # 3. Scope and Features of the Project:
-MPC Profiling
-* Provide researcher insights into existing codebase
-  * Provide a "best" execution configuration for the existing codebase
-  * Identify bottlenecks and other areas for improvement to the library as implemented.
-* Provide greater ease of use/recreation of specific modes/tests
-  * Launching scripts/configuration files
-  * A GUI could be nice but is almost certainly out of scope as outside clients of the MPC are not the primary personas for this project.
 
-**__Questions:__**
-* This will need far more detail, answering the earlier questions will help to inform this section.
-* Once we know what users and what the user stories/envisioned high-level outcome is we can better ask questions concerning scope specifics...
+The project scope includes:
+
+* Deployment of the Secure MPC on the following platforms:
+  * Virtual Machines (using OpenStack)
+  * Containers (using OpenShift)
+  * Bare Metal Machines (using OpenStack)
+
+
+* Design space exploration of the Secure MPC deployments to increase perfomance/benchmark scores.
+  * Configuring MPI settings and trying different modes (sync. vs async.) to achieve minimal communication bottleneck.
+  * Testing communication protocols other than MPI to gain performance improvement.
+  * Exploring alternatives to the current single-process per party paradigm.
+     * Multithreading
+     * OpenMP  
+  * Identifying bottlenecks and other areas for improvement to the library as implemented.
+
+
+* Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/)
+  * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments
+  * Writing/Coding benchmark tests for each deployment.
+  * Measuring the benchmark scores.
+  * Generating a comparison report.
+
+
+* Generation of recreatable execution configurations and a generalized interface for the cloud deployments.
+  * Creating launching scripts,editing configuration files.
+  * Providing greater ease of use/recreation of specific modes/tests.
+
+
+* Analysis of the various MPC implementations
+  * Functionality testing and verification of the deployments.
+  * Determining the best performing deployment configuration across all deployments made.
+
+
+* STRECH Features
+   * Evaluate performance of MPC implementation on top of a Linux micro-kernel
+
+
+
+The following are clearly being mentioned to be out of scope of this project:
+* A GUI for the Secure-MPC deployments (for outside clients who might want to use a generalized or configured version of the software).
 
 ---
 # 4. Solution Concept:
-*TODO - Add to this!*
 
 ## High-level Solution Outline
-* Use a diagram to illustrate a high-level concept of the solution
-  * Alternately, the appearance of the solution can be shown here if there is already an architectural diagram that exists for the project.
-  * Note: Consider using LucidChart since it is available to BU students.
-  * A walkthrough of the diagramed structure should exist.
 
-## Architectural Diagrams
+### Architectural Diagrams
 ![simple_mpc_arch](Images/simple_mpc_arch.png)
 
 *TODO - Diagram Ideas*
@@ -159,17 +159,15 @@ MPC Profiling
 
 ---
 # 5. Acceptance Criteria:
-* Establish a performance baseline.
-  * Compare to prior-testing/published results
-* Provide a thorough survey of the same software over a comprehensive set of deployment configurations with a range of software settings.
+* Provision of a thorough survey report of the software over a comprehensive set of deployment configurations with the range of software settings tested.
   * Make it possible to recreate the tested implementations.
-  * Identify bottlenecks in tested implementations.
-    * Select execution scenarios with the greatest potential.
+  * Identification bottlenecks in tested implementations.
+  * Selection of execution scenarios with the greatest potential.
 
 **__Questions:__**
 * Will this be purely or mostly performance based? What are the metrics?
 * What features or outcome is sought?
-* Can be define minimal goals (MVP) as well as stretch goals?
+* Can we define minimal goals (MVP) as well as stretch goals?
 * If this is to be conducted primarily as a survey, what is the desired minimum reasonable amount of testing to be accomplished?
 
 ---
@@ -194,7 +192,7 @@ MPC Profiling
     - [ ] Work on task breakdown using taiga board
     - [ ] Schedule meeting with Mayank for MPC background presentation?
     - [ ] Gain MOC access and perform any necessary [background reading](https://docs.massopen.cloud/en/latest/home.html#) (Specifically look at the "How-Tos")
-    - [ ] *TODO*
+    - [ ] Understanding the MPC codebase
   * Sprint 2: October 1, 2020 - October 15, 2020
     - [ ] *TODO*
   * Sprint 3: October 15, 2020 - October 29, 2020
