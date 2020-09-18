@@ -44,16 +44,16 @@ Subject-Matter Expert | Mayank Varia | varia@bu.edu
 # 1. Visions and Goals of the Project:
 
 ## Vision Statement
-This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will perform performance analysis on the different deployments using some standardized benchmarks, and compare the performace of Secure-MPC on the different deployments. Finally, the project will try to optimize the cloud based optimizations and search for possible bottenecks, tweaks and try to leverge cloud-environment to improve performance of the MPC on cloud.
+This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will perform performance analysis on the different deployments using some standardized benchmarks, and compare the performance of Secure-MPC on the different deployments. Finally, the project will try to optimize the cloud based optimizations and search for possible bottlenecks, tweaks and try to leverage cloud-environment to improve performance of the MPC on cloud.
 
 ## Goals
-A simplified breakdown of the project into high level goals includes: 
+A simplified breakdown of the project into high level goals includes:
 
 * Deployment of the Secure-MPC on multiple cloud-based and bare-metal platforms.
 * Functionality testing and verification of deployments.
 * Profiling and comparing each deployment configuration on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) with respect to some benchmark specifications.
-* Design space exploration of the Secure MPC deployments to increase perfomance/benchmark scores. 
-* Determining the best performing deployment configuration acrross all deployments done.
+* Design space exploration of the Secure MPC deployments to increase performance/benchmark scores.
+* Determining the best performing deployment configuration across all deployments done.
 
 **__Questions:__**
 * Configuration/launch tools to recreate different run scenarios on the MOC?
@@ -61,13 +61,13 @@ A simplified breakdown of the project into high level goals includes:
   * Improved frontend? What is the current user interface and who can/can't make use of it?
     * Are we appropriately serving the target user audience? (Domain experts, outsiders, other?)
   * Improved backend?
-        
+
 
 ---
 # 2. Users/Personas of the Project:
 
 ## Users/Personas of Interest
-Since this is a deployment of a specialized MPC implementation as a research-output on the Mass Open Cloud, the quintenssential users of this project would be the initial MPC development team. 
+Since this is a deployment of a specialized MPC implementation as a research-output on the Mass Open Cloud, the quintessential users of this project would be the initial MPC development team.
 
 ## Users/Personas List
 * John
@@ -87,31 +87,31 @@ Since this is a deployment of a specialized MPC implementation as a research-out
 ---
 # 3. Scope and Features of the Project:
 
-The project scope includes: 
+The project scope includes:
 
-* Deployment of the Secure MPC on the following platforms: 
+* Deployment of the Secure MPC on the following platforms:
   * Virtual Machines (using OpenStack)
   * Containers (using OpenShift)
   * Bare Metal Machines (using OpenStack)
-* Generation of recreatable execution configurations and a generalized interface for the cloud deployments.
-  * Creating launching scripts,editing configuration files. 
+* Generation of repeatable execution configurations and a generalized interface for the cloud deployments.
+  * Creating launching scripts and editing configuration files.
   * Providing greater ease of use/recreation of specific modes/tests.
 * Functionality testing and verification of the deployments.
-* Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/) 
-  * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments 
+* Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/)
+  * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments
   * Writing/Coding benchmark tests for each deployment.
   * Measuring the benchmark scores.
-  * Generating a comparison report. 
+  * Generating a comparison report.
 
 STRECH Features  >>>>> ???????
-* Design space exploration of the Secure MPC deployments to increase perfomance/benchmark scores. 
-  * Configuring MPI settings and trying differnt modes (sync. vs async.) to achieve minimal communication bottleneck.
-  * Testing communication protocols other than MPI to gain performance improvement. 
+* Design space exploration of the Secure MPC deployments to increase performance/benchmark scores.
+  * Configuring MPI settings and trying different modes (sync vs async) to achieve minimal communication bottleneck.
+  * Testing communication protocols other than MPI to gain performance improvement.
   * Exploring alternatives to the current single-process per party paradigm.
   * Identifying bottlenecks and other areas for improvement to the library as implemented.
   * Multiple pthreads ...????
   * OpenMP ....????
-* Determining the best performing deployment configuration acrross all deployments made.
+* Determining the best performing deployment configuration across all deployments made.
 
 The following are clearly being mentioned to be out of scope of this project:   
 * A GUI for the Secure-MPC deployments (for outside clients who might want to use a generalized or configured version of the software).
