@@ -98,12 +98,13 @@ Since this is a deployment of a specialized MPC implementation as a research-out
   * Providing greater ease of use/recreation of specific modes/tests.
 * Analysis of the various MPC implementations
   * Functionality testing and verification of the deployments.
-  * Determining the best performing deployment configuration across all deployments made.
-    * Profiling and comparing the deployment configurations on [Massachusetts Open Cloud (MOC)](https://massopen.cloud/)
-    * Determining appropriate performance representative benchmark specifications and metrics for the MPC deployments
-    * Writing/Coding benchmark tests for each deployment.
-    * Measuring the benchmark scores.
-    * Generating a comparison report.
+  * Determine appropriate performance metrics of interest for the MPC deployments.
+  * Identify any relevant benchmarking/profiling tools available on the [Massachusetts Open Cloud (MOC)](https://massopen.cloud/).
+  * As needed, instrument the MPC code in order to obtain performance data making sure to add minimal overhead.
+  * Writing/Coding benchmark tests for each deployment.
+  * Execute profiling tests for the different deployment configurations on the MOC.
+  * Generating a comparison report for the test runs.
+    * Determine the best performing deployment configuration across all deployments made.
 
 ## Stretch Features Scope:
 *TODO - Further Discussion Needed*
@@ -114,6 +115,8 @@ Since this is a deployment of a specialized MPC implementation as a research-out
      * Multithreading (e.g. OpenMP, pthreads, ...)  
   * Identifying bottlenecks and other areas for improvement to the library as implemented.
 * Evaluate performance of MPC implementation on top of a Linux micro-kernel
+* Define our own benchmark targeting specific characteristics of MPC workloads.
+  * Are there measurements or types of workloads that are not represented in our other tests?
 
 ## Outside of Scope:
 *The following are clearly being mentioned to be out of scope of this project*
@@ -175,8 +178,9 @@ Since this is a deployment of a specialized MPC implementation as a research-out
     - [X] Initial Mentor meeting
     - [ ] Finalize Ongoing Meeting date (Proposed: Mondays EST 3-4PM)
       - [ ] Additional occasional evening meeting for different time zones? Or alter proposed meeting regular meeting time?
-    - [ ] Establish Project Plan (due by September 17, 2020)
-    - [ ] Gain access to existing software ASAP
+    - [X] Establish Project Plan (due by September 17, 2020)
+    - [ ] Gain access to existing software ASAP (Access likely to be provided on Tuesday September 22)
+    - [ ] Migrate project repository as requested by clients
     - [ ] MPC, MPI, and other background reading as needed by team members (additional learning "spikes" expected in Sprint 1)
   * Sprint 1: September 17, 2020 - October 1, 2020
     - [ ] Work on task breakdown using taiga board
@@ -184,13 +188,13 @@ Since this is a deployment of a specialized MPC implementation as a research-out
     - [ ] Gain MOC access and perform any necessary [background reading](https://docs.massopen.cloud/en/latest/home.html#) (Specifically look at the "How-Tos")
     - [ ] Understanding the MPC codebase
   * Sprint 2: October 1, 2020 - October 15, 2020
-    - [ ] *TODO*
+    - [ ] *TODO - tentative: Work on different deployment scripts and configurations on MOC*
   * Sprint 3: October 15, 2020 - October 29, 2020
-    - [ ] *TODO*
+    - [ ] *TODO - tentative: MOC deployments profiling and report generation*
   * Sprint 4: October 29, 2020 - November 12, 2020
-    - [ ] *TODO*
+    - [ ] *TODO - tentative: Optimizations to codebase/advanced profiling?*
   * Sprint 5: November 12, 2020 - December 3, 2020
-    - [ ] *TODO*
+    - [ ] *TODO - tentative: Optimizations to codebase/advanced profiling?*
 
 **__Questions:__**
 * After answering earlier questions this will be easier to plan
