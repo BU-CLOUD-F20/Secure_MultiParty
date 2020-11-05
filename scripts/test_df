@@ -1,0 +1,6 @@
+# New dockerfile test
+# Starting from Ubuntu 20.04
+# Avoiding "apt upgrade" as suggested in the docker documentation
+
+FROM ubuntu:20.04
+RUN apt update && apt install -y build-essential openmpi-bin libsodium23 libsodium-dev
