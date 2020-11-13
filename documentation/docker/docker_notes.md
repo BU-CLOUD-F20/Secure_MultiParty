@@ -209,3 +209,177 @@ https://docs.docker.com/engine/reference/commandline/exec/#examples
     217         MPI_Recv(r1s2, ROWS, MPI_LONG_LONG, 0, SHARE_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     (gdb)
     ```
+
+## Steps Towards Final Resolution
+
+1. After some additional digging, mostly by looking at the returned value from MPI_Recv, it appeared that the error/warning message was not actually from that command but rather from something internal to OpenMPI.
+1. With some searching of the OpenMPI github repo I was able to find a line that matched the structure of the message. See [here](https://github.com/open-mpi/ompi/blob/b66e27d3caaf20cabe379656618191ecdba1469c/opal/mca/btl/sm/btl_sm_get.c#L98).
+1. Here's a snippet of output from debugging with GDB that illustrates the lack of direct error message from MPI_Recv
+  ```
+  $12 = {MPI_SOURCE = 0, MPI_TAG = 193, MPI_ERROR = 0, _cancelled = 0, _ucount = 8000}
+  (gdb) p result1
+  $13 = 0
+  (gdb) p status2
+  $14 = {MPI_SOURCE = 0, MPI_TAG = 193, MPI_ERROR = 0, _cancelled = 0, _ucount = 8000}
+  (gdb) p result2
+  $15 = 0
+  (gdb) l
+  220       }
+  221       else { //P3
+  222         result1 = MPI_Recv(r1s1, ROWS, MPI_LONG_LONG, 0, SHARE_TAG, MPI_COMM_WORLD, &status1);
+  223         result2 = MPI_Recv(r1s2, ROWS, MPI_LONG_LONG, 0, SHARE_TAG, MPI_COMM_WORLD, &status2);
+  224       }
+  225     }
+  (gdb)
+  ```
+1. A few other issues that were open on github discussed this type of situation. See [here](https://github.com/open-mpi/ompi/issues/3270) and [here](https://www.open-mpi.org/faq/?category=sm).
+1. In conclusion, for some reason the use of the "vader" mechanism for zero copy sharing (utilized when running mpi on a single node) was not working in the docker environment. Using a specific flag with mpirun would disable that entirely (though having gone through these efforts now, it would seem that when this zero copy mechanism didn't work, mpi was falling back on a different system).
+  ```
+  # An example call with the override parameter in question
+  mpirun --mca btl_vader_single_copy_mechanism none -np 3 exp-exchange 1000
+  # instead of
+  mpirun -np 3 exp-exchange 1000
+  ```
+
+## Deploying Multiple Docker Containers
+
+1. Working with docker-compose, it was possible to create a *.yml file that describes a topology with three parties using the same Dockerfile that defines all of the dependencies needed to run the MPC code.
+1. This did require copying the technique used in [this](https://github.com/oweidner/docker.openmpi/blob/master/Dockerfile) reference project both for the Dockerfile and for the *.yml for docker-compose.
+1. Additionally, copying the src, tests, and experiments directories into the scripts folder is needed for the Dockerfile to be able to packages those files into containers. Additionally, based on the repo mentioned in the last step, copying the ssh files from that repo (or regenerating versions locally) is also needed to help enable ssh communication between the nodes. The launch.sh script is not actually used but was part of testing (as is the Dockerfile_NEW, which now is another backup)
+1. At this point, all that is needed is to run
+  ```
+  docker-compose build
+  docker-compose up
+  # Then connect to party-0: the following line is one way of doing so
+  # Some other ideas here: https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose
+  docker-compose exec party-0 bash
+  # Change user from root to mpc
+  su mpc
+  # Execute an mpirun command
+  mpirun --host party-0,party-1,party-2 -np 3 exp-exchange 1000
+  ```
+1. Note: I upgraded from docker-compose version 2.4 to 3.8 as I didn't appear to need any of the older features. [This page](https://docs.docker.com/compose/compose-file/compose-versioning/) provides information about the different versions and how to upgrade between them. Additional follow-up, I switched back to 3.7 as kompose does not yet have a minor version check in it's latest release (a fix is merged though, presumably for the next release)
+
+## Converting for OpenShift Deployment
+
+1. Follow the instructions [here](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/) or [here](https://kompose.io/getting-started/) to convert the docker-compose into a different format.
+1. First, since I'm using Docker Desktop backed by WSL2 on Windows 10, I enable a local Kubernetes single node cluster through the gui.
+1. While I can launch OpenShift directly from a docker-compose.yml using kompose, I want to try converting to an intermediate file that I can use with different OpenShift deployments.
+  ```
+  # Download the most recent release of kompose
+  curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
+  # Run kompose command on *.yml file
+  kompose convert -f docker-compose.yml
+  ```
+
+1. I ran into an issue where docker-compose v3.8 files are not yet supported `FATA Version 3.8 of Docker Compose is not supported. Please use version 1, 2 or 3` (just a missing version check). switching to 3.7 works just as before but I see a different kompose error message: `FATA gateway Additional property gateway is not allowed`. It seems that are more issues related to what features are, or are not supported between the different *.yml file versions. I switched to just version "2" without any sub-version and then using kompose the conversion worked properly.
+    ```
+    pwolfe@Lux:/mnt/d/Documents/BU Cloud/repos/ccproject/scripts$ ../../kompose convert -f docker-compose.yml
+    INFO Network scripts_mpc_net is detected at Source, shall be converted to equivalent NetworkPolicy at Destination
+    INFO Network scripts_mpc_net is detected at Source, shall be converted to equivalent NetworkPolicy at Destination
+    INFO Network scripts_mpc_net is detected at Source, shall be converted to equivalent NetworkPolicy at Destination
+    INFO Kubernetes file "party-0-service.yaml" created
+    INFO Kubernetes file "party-1-service.yaml" created
+    INFO Kubernetes file "party-2-service.yaml" created
+    INFO Kubernetes file "party-0-deployment.yaml" created
+    INFO Kubernetes file "scripts_mpc_net-networkpolicy.yaml" created
+    INFO Kubernetes file "party-1-deployment.yaml" created
+    INFO Kubernetes file "party-2-deployment.yaml" created
+    ```
+
+1. Now to try using these resources within Kubernetes: `kubectl apply` (Skipped this for now)
+
+1. For OpenShift I can do something similar with a few extra flags:
+  ```
+  pwolfe@Lux:/mnt/d/Documents/BU Cloud/repos/ccproject/scripts$ ../../kompose --provider openshift --file docker-compose.yml convert
+  INFO OpenShift file "party-0-service.yaml" created
+  INFO OpenShift file "party-1-service.yaml" created
+  INFO OpenShift file "party-2-service.yaml" created
+  INFO OpenShift file "party-0-deploymentconfig.yaml" created
+  INFO OpenShift file "party-0-imagestream.yaml" created
+  INFO OpenShift file "party-1-deploymentconfig.yaml" created
+  INFO OpenShift file "party-1-imagestream.yaml" created
+  INFO OpenShift file "party-2-deploymentconfig.yaml" created
+  INFO OpenShift file "party-2-imagestream.yaml" created
+  ```
+
+1. Now, after logging into the MOC OpenShift website, I used the "Copy Login Command" from the user profile dropdown in the top righthand corner. It looks something like this: `../../openshift/oc-tool/oc login https://k-openshift.osh.massopen.cloud:8443 --token=<TOKEN STRING>` though I modified the location of the oc tool. The result is as follows:
+  ```
+  Logged into "https://k-openshift.osh.massopen.cloud:8443" as "pwolfe@bu.edu" using the token provided.
+
+  You have one project on this server: "ece-528-secure-multiparty"
+
+  Using project "ece-528-secure-multiparty".
+  ```
+1. Trying to create a new app from the templates...
+  ```
+  pwolfe@Lux:/mnt/d/Documents/BU Cloud/repos/ccproject/scripts$ ../../openshift/oc-tool/oc new-app --template=party-0-service.yaml,party-1-s
+  ervice.yaml,party-2-service.yaml,party-0-deploymentconfig.yaml,party-1-deploymentconfig.yaml,party-2-deploymentconfig.yaml,party-0-imagest
+  ream.yaml,party-1-imagestream.yaml,party-2-imagestream.yaml
+  error: unable to locate any templates loaded in accessible projects with name "party-0-service.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-1-service.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-2-service.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-0-deploymentconfig.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-1-deploymentconfig.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-2-deploymentconfig.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-0-imagestream.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-1-imagestream.yaml"
+  error: unable to locate any templates loaded in accessible projects with name "party-2-imagestream.yaml"
+
+  The 'oc new-app' command will match arguments to the following types:
+
+    1. Images tagged into image streams in the current project or the 'openshift' project
+       - if you don't specify a tag, we'll add ':latest'
+    2. Images in the Docker Hub, on remote registries, or on the local Docker engine
+    3. Templates in the current project or the 'openshift' project
+    4. Git repository URLs or local paths that point to Git repositories
+
+  --allow-missing-images can be used to point to an image that does not exist yet.
+
+  See 'oc new-app -h' for examples.
+  ```
+
+1. Trying something different:
+  ```
+  pwolfe@Lux:/mnt/d/Documents/BU Cloud/repos/ccproject/scripts$ ../../openshift/oc-tool/oc new-app scripts_party-0 scripts_party-1 scripts_party-2
+  W1111 11:38:09.945481    3901 newapp.go:479] Could not find an image stream match for "scripts_party-0:latest". Make sure that a Docker image with that tag is available on the node for the deployment to succeed.
+  --> Found Docker image e444798 (2 hours old) from  for "scripts_party-0:latest"
+
+      * This image will be deployed in deployment config "scriptsparty-0"
+      * Port 22/tcp will be load balanced by service "scriptsparty-0"
+        * Other containers can access this service through the hostname "scriptsparty-0"
+      * WARNING: Image "scripts_party-0:latest" runs as the 'root' user which may not be permitted by your cluster administrator
+
+  W1111 11:38:09.947527    3901 newapp.go:479] Could not find an image stream match for "scripts_party-1:latest". Make sure that a Docker image with that tag is available on the node for the deployment to succeed.
+  --> Found Docker image e444798 (2 hours old) from  for "scripts_party-1:latest"
+
+      * This image will be deployed in deployment config "scriptsparty-1"
+      * Port 22/tcp will be load balanced by service "scriptsparty-1"
+        * Other containers can access this service through the hostname "scriptsparty-1"
+      * WARNING: Image "scripts_party-1:latest" runs as the 'root' user which may not be permitted by your cluster administrator
+
+  W1111 11:38:09.947640    3901 newapp.go:479] Could not find an image stream match for "scripts_party-2:latest". Make sure that a Docker image with that tag is available on the node for the deployment to succeed.
+  --> Found Docker image e444798 (2 hours old) from  for "scripts_party-2:latest"
+
+      * This image will be deployed in deployment config "scriptsparty-2"
+      * Port 22/tcp will be load balanced by service "scriptsparty-2"
+        * Other containers can access this service through the hostname "scriptsparty-2"
+      * WARNING: Image "scripts_party-2:latest" runs as the 'root' user which may not be permitted by your cluster administrator
+
+  --> Creating resources ...
+      deploymentconfig.apps.openshift.io "scriptsparty-0" created
+      deploymentconfig.apps.openshift.io "scriptsparty-1" created
+      deploymentconfig.apps.openshift.io "scriptsparty-2" created
+      service "scriptsparty-0" created
+      service "scriptsparty-1" created
+      service "scriptsparty-2" created
+  --> Success
+      Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
+       'oc expose svc/scriptsparty-0'
+       'oc expose svc/scriptsparty-1'
+       'oc expose svc/scriptsparty-2'
+      Run 'oc status' to view your app.
+    ```
+
+    Now it appears that OpenShift is in the process of launching my containers? I'll check back in a bit to see if things progress past this stage...
+    ![openshift_pending](/Images/openshift_pending.png)

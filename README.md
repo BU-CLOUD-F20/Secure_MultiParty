@@ -258,7 +258,7 @@ The mentors have provided a number of tests they had run on their MPC codebase a
   * [Sprint 1 Demo Slides](/documentation/sprint_demos/sprint_1_demo.pdf)
   * [Sprint 2 Demo Slides](/documentation/sprint_demos/sprint_2_demo.pdf)
   * [Sprint 3 Demo Slides](/documentation/sprint_demos/sprint_3_demo.pdf)
-  * [Sprint 4 Demo Slides](/documentation/sprint_demos/sprint_4_demo.pdf) *Future Update*
+  * [Sprint 4 Demo Slides](/documentation/sprint_demos/sprint_4_demo.pdf)
   * [Sprint 5 Demo Slides](/documentation/sprint_demos/sprint_5_demo.pdf) *Future Update*
   * [SmartNIC Paper Presentation Slides](/documentation/paper_presentation/smartnic_paper_presentation.pdf)
 
@@ -310,26 +310,28 @@ The mentors have provided a number of tests they had run on their MPC codebase a
 
   * Sprint 4: October 29, 2020 - November 12, 2020
     - [ ] Finish fixing/making additions to geni-lib scripts for custom CloudLab profiles
-      - [ ] Bare Metal testing setup (discovered Link vs. LAN situation in script)
+      - [X] Bare Metal testing setup (discovered Link vs. LAN situation in script)
       - [ ] OpenStack/OpenShift custom configurations on CloudLab?
     - [ ] Docker/OpenShift (container work)
-      - [ ] Debug OpenMPI issue with single docker container (Ubuntu 20.04 based setup)
+      - [X] Debug OpenMPI issue with single docker container (Ubuntu 20.04 based setup)
       - [ ] Coordinate local testing work on Docker and deploy work with OpenShift (meeting time setup between team members for this to take place)
     - [ ] Instrumentation and testing/data collection
       - [ ] Make changes to source code previously identified (change gettime, add in macros/loops/better output for testing ranges of input values)
       - [ ] Identify and incorporate MPI parameters into iterative testing loops? (Work on this list for John/Vasia)
       - [ ] Work through list of MPI profiling/benchmarking tools (try using GUI tools on MOC OpenStack VMs, if issues occur, maybe use P-F or other system in BU Photonics building)
     - [ ] Actual tests to run:
-      - [ ] x86 node (and maybe ARM) tests for baremetal on cloudlab with proper LAN
+      - [X] x86 node (and maybe ARM) tests for baremetal on cloudlab with proper LAN
       - [ ] Container tests if current bugs are resolved.
       - [ ] Consider geographically distributed MPC tests across CloudLab Nodes
-    - [ ] Other:
-      - [ ] Make sure to grade and return class responses/summaries for SmartNIC presentation
-      - [ ] Finish responding to other groups about geni-lib scripts
-      - [ ] Finish moving documentation to publicly accessible repo (retain code base in mentor private repo)
+    - [X] Other:
+      - [X] Make sure to grade and return class responses/summaries for SmartNIC presentation
+      - [X] Finish responding to other groups about geni-lib scripts
+      - [X] Finish moving documentation to publicly accessible repo (retain code base in mentor private repo)
 
   * Sprint 5: November 12, 2020 - December 3, 2020
     - [ ] *TODO - tentative: Optimizations to codebase/advanced profiling?*
+        - [ ] Migrate unfinished tasks from Sprint 4 to Sprint 5
+        - [ ] Finalize goals/plan of attack during scheduled team meeting 11/14/2020
 
 **__Questions:__**
 * ~After answering earlier questions this will be easier to plan~
