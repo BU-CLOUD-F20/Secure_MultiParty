@@ -19,7 +19,7 @@
 ![clab](/Images/multinodes/3.png)
 
 6. ```
-   Sudo apt update
+   sudo apt update
    ``` 
    is required for setting up the environment. And then we do the same job on other nodes to test MPI functionality.
 

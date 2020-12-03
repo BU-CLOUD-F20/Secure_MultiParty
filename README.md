@@ -259,7 +259,7 @@ The mentors have provided a number of tests they had run on their MPC codebase a
   * [Sprint 2 Demo Slides](/documentation/sprint_demos/sprint_2_demo.pdf)
   * [Sprint 3 Demo Slides](/documentation/sprint_demos/sprint_3_demo.pdf)
   * [Sprint 4 Demo Slides](/documentation/sprint_demos/sprint_4_demo.pdf)
-  * [Sprint 5 Demo Slides](/documentation/sprint_demos/sprint_5_demo.pdf) *Future Update*
+  * [Sprint 5 Demo Slides](/documentation/sprint_demos/sprint_5_demo.pdf) | [Sprint 5 video](https://www.youtube.com/watch?v=rdcqMIWx2Uw)
   * [SmartNIC Paper Presentation Slides](/documentation/paper_presentation/smartnic_paper_presentation.pdf)
 
 ## Some Preliminary Goals by Sprint:
@@ -311,27 +311,53 @@ The mentors have provided a number of tests they had run on their MPC codebase a
   * Sprint 4: October 29, 2020 - November 12, 2020
     - [ ] Finish fixing/making additions to geni-lib scripts for custom CloudLab profiles
       - [X] Bare Metal testing setup (discovered Link vs. LAN situation in script)
-      - [ ] OpenStack/OpenShift custom configurations on CloudLab?
+      - [ ] ~OpenStack/OpenShift custom configurations on CloudLab?~
     - [ ] Docker/OpenShift (container work)
       - [X] Debug OpenMPI issue with single docker container (Ubuntu 20.04 based setup)
-      - [ ] Coordinate local testing work on Docker and deploy work with OpenShift (meeting time setup between team members for this to take place)
+      - [ ] ~Coordinate local testing work on Docker and deploy work with OpenShift (meeting time setup between team members for this to take place)~
     - [ ] Instrumentation and testing/data collection
-      - [ ] Make changes to source code previously identified (change gettime, add in macros/loops/better output for testing ranges of input values)
-      - [ ] Identify and incorporate MPI parameters into iterative testing loops? (Work on this list for John/Vasia)
-      - [ ] Work through list of MPI profiling/benchmarking tools (try using GUI tools on MOC OpenStack VMs, if issues occur, maybe use P-F or other system in BU Photonics building)
+      - [ ] ~Make changes to source code previously identified (change gettime, add in macros/loops/better output for testing ranges of input values)~
+      - [ ] ~Identify and incorporate MPI parameters into iterative testing loops? (Work on this list for John/Vasia)~
+      - [ ] ~Work through list of MPI profiling/benchmarking tools (try using GUI tools on MOC OpenStack VMs, if issues occur, maybe use P-F or other system in BU Photonics building)~
     - [ ] Actual tests to run:
       - [X] x86 node (and maybe ARM) tests for baremetal on cloudlab with proper LAN
-      - [ ] Container tests if current bugs are resolved.
-      - [ ] Consider geographically distributed MPC tests across CloudLab Nodes
+      - [ ] ~Container tests if current bugs are resolved.~
+      - [ ] ~Consider geographically distributed MPC tests across CloudLab Nodes~
     - [X] Other:
       - [X] Make sure to grade and return class responses/summaries for SmartNIC presentation
       - [X] Finish responding to other groups about geni-lib scripts
       - [X] Finish moving documentation to publicly accessible repo (retain code base in mentor private repo)
 
   * Sprint 5: November 12, 2020 - December 3, 2020
-    - [ ] *TODO - tentative: Optimizations to codebase/advanced profiling?*
-        - [ ] Migrate unfinished tasks from Sprint 4 to Sprint 5
-        - [ ] Finalize goals/plan of attack during scheduled team meeting 11/14/2020
+    - [X] *TODO - tentative: Optimizations to codebase/advanced profiling?*
+        - [X] Migrate unfinished tasks from Sprint 4 to Sprint 5
+        - [X] Finalize goals/plan of attack during scheduled team meeting 11/14/2020
+    - [X] Finish fixing/making additions to geni-lib scripts for custom CloudLab profiles
+      - [X] OpenStack/OpenShift custom configurations on CloudLab?
+    - [ X Docker/OpenShift (container work)
+      - [X] Coordinate local testing work on Docker and deploy work with OpenShift (meeting time setup between team members for this to take place)
+    - [X] Instrumentation and testing/data collection
+      - [X] Make changes to source code previously identified (change gettime, add in macros/loops/better output for testing ranges of input values)
+      - [ ] ~Identify and incorporate MPI parameters into iterative testing loops? (Work on this list for John/Vasia)~
+      - [ ] ~Work through list of MPI profiling/benchmarking tools (try using GUI tools on MOC OpenStack VMs, if issues occur, maybe use P-F or other system in BU Photonics building)~
+      - [X] Score-P and CUBE gui explored
+    - [ ] Actual tests to run:
+      - [ ] Container tests if current bugs are resolved. (Evaluate OpenShift)
+      - [ ] Consider geographically distributed MPC tests across CloudLab Nodes
+        - [X] LAN across clusters
+        - [ ] Ring across clusters (Run this when clusters are free)
+
+  * Wrap-up: December 4, 2020 - December 10, 2020
+    - [ ] Finalize and cleanup documentation
+    - [ ] Make minor final ansible tweaks
+    - [ ] Collect last remaining datasets for topologies (Reservations that were not available on CloudLab - See above)
+    - [ ] List in documentation and stories and accompanying details that were of lower priority to make it easier to continue work in the future.
+    - [ ] Prepare final presentation describing project
+      - [ ] Meet with mentors to get feedback on final presentation
+      - [ ] Schedule handoff meeting to provide live demo of tools use to mentors
+      - [ ] Prepare slides
+      - [ ] Capture video of different tools
+      - [ ] Capture voice-overs
 
 **__Questions:__**
 * ~After answering earlier questions this will be easier to plan~
