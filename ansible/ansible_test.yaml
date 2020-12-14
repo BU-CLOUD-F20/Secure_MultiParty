@@ -1,0 +1,141 @@
+---
+# Pierre-Francois Wolfe 2020
+# OS and distro handling from: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+# Package installation from: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html
+# https://www.linuxtechi.com/how-to-use-loops-in-ansible-playbook/
+- name: Configure mpc environment by OS
+  hosts: all
+  # become: yes
+  tasks:
+    # Check if ssh agent forwarding is working
+    - name: Check Agent Forwarding - find loaded keys
+      command: ssh-add -l
+      register: loaded_keys
+
+    - name: Check Agent Forwarding - display loaded keys
+      debug: msg="{{ loaded_keys.stdout }}"
+
+    # For example, install PPA for Ubuntu hosts
+    - name: Do OS specific setup needed before installing all packages
+      include_tasks:
+        file: "tasks_os_{{ ansible_facts['distribution'] }}.yaml"
+
+    # The variables imported list all the packages to install
+    - name: Set OS distribution dependent variables
+      include_vars:
+        file: "vars_os_{{ ansible_facts['distribution'] }}.yaml"
+
+    # Loop over the packages and install any that are missing
+    - name: Install "{{ required_package }}
+      package:
+        name: "{{ required_packages }}"
+        state: present
+      become: yes
+      loop: "{{ required_packages }}"
+
+    # Make sure a group exists that we can use to manage access to all the files
+    - name: Ensure mpc group exists
+      group:
+        name: mpc
+        state: present
+      become: yes
+
+    # Add user to the mpc group we created, current user by default, others can be appended
+    - name: Adding existing user "{{ item }}" to group mpc
+      user:
+        name: "{{ item }}"
+        groups: mpc
+        append: yes
+      become: yes
+      loop:
+        - "{{ ansible_user }}"
+
+    # Create a directory that is accessible to any potential user
+    - name: Create directories if they don't exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: mpc
+        # set gid flag here so all files added belong to mpc
+        mode: 02775
+        # not sure that I need to use recurse here... this sets the gid for all files and directories?
+        # recurse: true
+      become: yes
+      loop:
+        - /mpc/
+
+    # Flags explicitly set for clarity (some defaults are already set as needed)
+    # We may want to use the delete option here to clear out the remote directory depending on the scenario
+    - name: Synchronize local files to remote hosts using rsync protocol (push)
+      synchronize:
+        # Using playbook_dir seems to solve the relative path issues...
+        src: "{{ playbook_dir }}/../."
+        dest: /mpc/
+        rsync_opts:
+          - "--include=src/***"
+          - "--include=experiments/***"
+          - "--include=tests/***"
+          - "--exclude=**"
+        use_ssh_args: yes
+        archive: no
+        recursive: yes
+        links: no
+        perms: no
+        times: no
+        owner: no
+        group: no
+
+    # Building desired experiment
+    - name: Build the exp-exchange program (with parameters set in Makefile)
+      make:
+        chdir: /mpc/experiments
+        target: exp-exchange
+
+    # Configure the master node to not perform strict ssh checking (allows for mpi to run)
+    - name: Bypassing strict checking on main node for mpi
+      copy:
+        src: mpc.conf
+        dest: /etc/ssh/ssh_config.d/mpc.conf
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+      become: yes
+      when: inventory_hostname in groups['primary']
+
+    # Inspiration from: https://github.com/SketchingDev/Ansible-MPI-Cluster/blob/6856ff30cfca738d24ff7f02845286016f933fce/provisioning/test_cluster.yml
+    # Launch experiment from main node only
+    - name: Attempting to launch experiment...
+      # The pattern here assumes the localhost will be bastion host if there is one
+      # The private ip address is found for each of the secondary nodes and is used
+      shell: 'mpirun --host localhost,"{{ hostvars[groups["secondary"][0]].ansible_default_ipv4.address }}","{{ hostvars[groups["secondary"][1]].ansible_default_ipv4.address }}" -np 3 exp-exchange 100 10 2 2'
+      args:
+        chdir: /mpc/experiments/
+      register: mpc_output
+      when: inventory_hostname in groups['primary']
+
+    # From: https://stackoverflow.com/questions/41971169/getting-the-newest-filename-in-a-directory-in-ansible
+    - name: Get files in a folder
+      find:
+        paths: /mpc/experiments/
+      register: found_files
+      when: inventory_hostname in groups['primary']
+
+    - name: Find latest file
+      set_fact:
+        latest_file: "{{ found_files.files | sort(attribute='mtime',reverse=true) | first }}"
+      when: inventory_hostname in groups['primary']
+
+    - name: Latest file name
+      debug:
+        msg: "{{ latest_file.path }}"
+      when: inventory_hostname in groups['primary']
+
+    # Retrieve csv output
+    - name: Retrieving csv output
+      fetch:
+        src: "{{ latest_file.path }}"
+        dest: "{{ playbook_dir }}/../retrieved/"
+        flat: yes
+      when: inventory_hostname in groups['primary']
+...

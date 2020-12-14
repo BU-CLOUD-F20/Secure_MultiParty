@@ -1,0 +1,5 @@
+---
+# Global variables for all hosts using MOC OpenStack
+ansible_user: pwolfe
+ansible_ssh_private_key_file: /home/pwolfe/.ssh/moc.key
+...

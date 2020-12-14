@@ -1,0 +1,23 @@
+# dockerfile for MPC codebase
+# using a multi-stage build: https://docs.docker.com/develop/develop-images/multistage-build/
+# execute the following line in this directory to build:
+# docker build --no-cache -t mpc_build:v1 -f mpc_build_df .
+
+# Base Images used
+FROM ubuntu:20.04
+
+# Copy and run shell script to install dependencies and then clean up
+COPY mpc_build_packages.sh .
+RUN ./mpc_build_packages.sh
+
+# Copy MPC source
+COPY ../src /
+COPY ../experiments /
+COPY ../tests /
+
+# Build MPC tests and experiments
+RUN make /experiments
+RUN make /tests
+
+# Execute test
+CMD mpirun -np 3 /experiments/exp-exchange

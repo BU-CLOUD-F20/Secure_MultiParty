@@ -1,0 +1,4 @@
+---
+# Secondary node 1
+ansible_host: ms1203.utah.cloudlab.us
+...

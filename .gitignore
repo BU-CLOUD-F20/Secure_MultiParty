@@ -51,3 +51,22 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Additional gitignore for TeX
+# For additional patterns refer to: https://github.com/github/gitignore/blob/master/TeX.gitignore
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+
+# All hidden files and directories except for .gitignore itself
+.*
+!/.gitignore
+
+# Ignore the data collection folder where results are retrieved
+retrieved/**

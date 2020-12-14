@@ -23,7 +23,83 @@ MPI libraries: https://github.com/open-mpi/ompi , https://github.com/pmodels/mpi
 MPC protocols: https://www.youtube.com/watch?v=P2MmO458xu4
 
 ---
+# Table of Contents
+* [Links to other Documentation](#links-to-other-documentation)
+* [Repo Organization](#repo-organization)
+* [Project Proposal](#project-proposal)
+  * [Team Members](##team-members)
+  * [Team Typical Schedule](##team-typical-schedule)
+* [Visions and Goals of the Project](#visions-and-goals-of-the-project)
+  * [Vision Statement](##vision-statement)
+  * [Goals](##goals)
+* [Users/Personas of the Project](#users/personas-of-the-project)
+  * [Users/Personas of Interest](##users/personas-of-interest)
+  * [Users/Personas List](##users/personas-list)
+    * [Users in Scope](###users-in-scope)
+    * [Users out of Scope](###users-out-of-scope)
+* [Scope and Features of the Project](#scope-and-features-of-the-project)
+  * [Primary Project Scope](##primary-project-scope)
+  * [Stretch Features Scope](##stretch-features-scope)
+  * [Outside of Scope](##outside-of-scope)
+* [Solution Concept](#solution-concept)
+  * [High-level Solution Outline](##high-level-solution-outline)
+    * [Architectural Diagrams](###architectural-diagrams)
+    * [Design Implications and Discussion](###design-implications-and-discussion)
+* [Acceptance Criteria](#acceptance-criteria)
+* [Release Planning](#release-planning)
+  * [Links to Presentations](##links-to-presentations)
+  * [Some Preliminary Goals by Sprint](##some-preliminary-goals-by-sprint)
+* [General Comments](#general-comments)
+
+---
+# Links to other Documentation
+* [SIMPLE START: TRY THIS GUIDE FIRST](documentation/simple_start.md)
+* [Original Mentor Documentation](documentation/original/INSTRUCTIONS.md)
+* [Ansible Deployment Notes](documentation/ansible/deployment.md)
+* CloudLab Documents
+  * [CloudLab Hello World](documentation/cloudlab/cloudlab_setup.md)
+  * [Initial Single Bare-Metal Setup](documentation/cloudlab/baremetal_test.md)
+  * [Initial Multi Bare-Metal Setup](documentation/cloudlab/multibaremetals.md)
+  * [Custom Topology Geni-Lib Setup](documentation/cloudlab/custom_setup.md)
+* Container Documents
+  * [Docker Notes](documentation/docker/docker_notes.md)
+  * OpenShift Notes
+    * [MOC Container Creation](documentation/openshift/moc_container_creation.md)
+    * [OpenShift Basics](documentation/openshift/OpenShift_basics.md)
+    * [Container Instantiation](documentation/openshift/openshift_container_instantiation.md)
+    * [Conan Deployment](documentation/openshift/deployment_using_conan.md) *EMPTY*
+    * [Minishift Notes](documentation/openshift/minishift.md) *EMPTY*
+    * [Sample Container Setup](documentation/openshift/setting_up__sample_container.md) *EMPTY*
+    * [C Container Setup](documentation/openshift/setting_up_c_based_container.md) *EMPTY*
+* OpenStack Documents
+  * [VM creation on OpenStack](documentation/openstack/moc_vm_creation.md)
+  * [Primary Node Setup (Specific commands)](documentation/openstack/cc-mpc-main_setup.md)
+  * [Secondary Node Setup (Cloning)](documentation/openstack/cc-mpc-secondary_setup.md)
+  * [Libsodium Config on VM](documentation/openstack/libsodium_moc_vm.md)
+  * [Testing MPI on VMs](documentation/openstack/mpi_moc_vm_test.md)
+  * [SSH Configuration Notes](documentation/openstack/ssh_notes.md)
+* Poster Session
+  * [Tex](documentation/poster/ec528_poster.tex)
+  * [Syle](documentation/poster/beamerthemeI6dv.sty)
+  * [PDF](documentation/poster/ec528_poster.pdf)
+
+---
+# Repo Organization
+* ansible: Contains playbooks and environments for ansible deployment
+* baremetal: Contains scripts used for CloudLab experiments
+* container: Contains scripts and configuration files for local Docker creation and OpenShift deployments
+* documentation: Contains multiple folders and markdown files (linked from previous section)
+* experiments: Mentor provided and team modified source code for MPC experiments
+* Images: Pictures used inside documentation
+* retrieved: Folder for storing data retrieved for experiments, ignored by .gitignore unless forced
+* scripts_other: Miscellaneous scripts (e.g. ssh key utility)
+* src: Mentor provided MPC library source code
+* tests: Basic tests provided by mentors for verifying MPC library
+
+---
 # Project Proposal:
+
+*[Return to TOC](#table-of-contents)*
 
 ## Team Members:
 Role | Name | Email
@@ -50,7 +126,9 @@ Subject-Matter Expert | Mayank Varia | varia@bu.edu
 
 ![when2meet](/Images/when2meet.png)
 
-# 1. Visions and Goals of the Project:
+# Visions and Goals of the Project:
+
+*[Return to TOC](#table-of-contents)*
 
 ## Vision Statement
 This project aims to deploy a C-based implementation of a 3-party Secure Multi Party Computation program on the Mass Open Cloud under multiple cloud-based and simple bare-metal deployment configurations. After deployment, the project will analyze and compare the performance of these deployments using some standardized benchmarks. In addition, this project seeks to optimize the cloud based implementations by exploring the design space options for MPC while search for possible bottlenecks. Where possible, bottlenecks will be addressed to improve performance of MPC in the cloud.
@@ -93,7 +171,9 @@ A simplified breakdown of the project into high level goals includes:
 
 
 ---
-# 2. Users/Personas of the Project:
+# Users/Personas of the Project:
+
+*[Return to TOC](#table-of-contents)*
 
 ## Users/Personas of Interest
 Since this is a deployment of a specialized MPC implementation as a research-output on the Mass Open Cloud, the quintessential users of this project would be the initial MPC development team.
@@ -121,7 +201,9 @@ Since this is a deployment of a specialized MPC implementation as a research-out
     * Cloud Computing non-expert sub-type
 
 ---
-# 3. Scope and Features of the Project:
+# Scope and Features of the Project:
+
+*[Return to TOC](#table-of-contents)*
 
 ## Primary Project Scope:
 
@@ -185,7 +267,9 @@ Since this is a deployment of a specialized MPC implementation as a research-out
 * ~A GUI for the Secure-MPC deployments (for outside clients who might want to use a generalized or configured version of the software).~
 
 ---
-# 4. Solution Concept:
+# Solution Concept:
+
+*[Return to TOC](#table-of-contents)*
 
 ## High-level Solution Outline
 
@@ -226,7 +310,10 @@ The mentors have provided a number of tests they had run on their MPC codebase a
 * Once user stories/vision is known we can define if there are specific frontend or backend architectures to define.
 
 ---
-# 5. Acceptance Criteria:
+# Acceptance Criteria:
+
+*[Return to TOC](#table-of-contents)*
+
 * Provision of a thorough survey report of the software over a comprehensive set of deployment configurations with the range of software settings tested.
   * Make it possible to recreate the tested implementations.
   * Identification bottlenecks in tested implementations.
@@ -244,7 +331,10 @@ The mentors have provided a number of tests they had run on their MPC codebase a
   * As indicated previously, the mentors focused on batched and unbatched MPI transactions both synch and async and specified testing across VMs, containers, and bare metal environments as the minimal desired data. The results obtained may influence follow-on questions they want answered though (so we anticipate this minimum testing to evolve).
 
 ---
-# 6. Release Planning:
+# Release Planning:
+
+*[Return to TOC](#table-of-contents)*
+
 *TODO: This section will need to show how incremental features and functions will be delivered...*
 - [X] Identify user stories
   - [ ] These have been identified for the current sprints but specific stories may emerge as initial testing results are obtained and presented to mentors
@@ -260,6 +350,7 @@ The mentors have provided a number of tests they had run on their MPC codebase a
   * [Sprint 3 Demo Slides](/documentation/sprint_demos/sprint_3_demo.pdf)
   * [Sprint 4 Demo Slides](/documentation/sprint_demos/sprint_4_demo.pdf)
   * [Sprint 5 Demo Slides](/documentation/sprint_demos/sprint_5_demo.pdf) | [Sprint 5 video](https://www.youtube.com/watch?v=rdcqMIWx2Uw)
+  * [Final Presentation Slides](/documentation/sprint_demos/final_presentation.pdf) | [Final Presentation video](https://youtu.be/ek2uw17AKDg)
   * [SmartNIC Paper Presentation Slides](/documentation/paper_presentation/smartnic_paper_presentation.pdf)
 
 ## Some Preliminary Goals by Sprint:
@@ -368,6 +459,9 @@ The mentors have provided a number of tests they had run on their MPC codebase a
 
 ---
 # General Comments:
+
+*[Return to TOC](#table-of-contents)*
+
 *TODO*
 * WIP Notes:
   * [Project Description Template](https://github.com/BU-NU-CLOUD-SP18/sample-project/blob/master/README.md)

@@ -1,0 +1,21 @@
+# Reference hosts file for MPC Project
+
+# Launches the MPI programs for MPC
+[primary]
+node-0
+
+# Other MPI compute nodes for MPC program
+[secondary]
+node-1
+node-2
+
+# The bastion and intranet groups can be eliminated if all hosts can be directly accessed
+# The intranet.yaml vars can also be removed in this case
+
+# Bastion host(s)
+[bastion:children]
+primary
+
+# Grouping of hosts that need to be accessed via a bastion host
+[intranet:children]
+secondary

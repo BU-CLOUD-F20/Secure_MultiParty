@@ -1,0 +1,23 @@
+# Hosts for MOC OpenStack VM
+
+# Launches the MPI programs for MPC
+[primary]
+node-0
+
+# Other MPI compute nodes for MPC program
+[secondary]
+node-1
+node-2
+
+# Additional systems not used for main MPC tests
+[other]
+node-3
+
+# Bastion host(s)
+[bastion:children]
+primary
+
+# Grouping of hosts that need to be accessed via a bastion host
+[intranet:children]
+secondary
+other

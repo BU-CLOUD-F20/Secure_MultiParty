@@ -1,0 +1,4 @@
+---
+# Primary node
+ansible_host: 128.31.25.149
+...

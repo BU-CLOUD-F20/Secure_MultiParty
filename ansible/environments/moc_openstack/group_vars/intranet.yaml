@@ -1,0 +1,4 @@
+---
+# Configuration to connect via bastion host
+ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q "{{ hostvars[groups["primary"][0]].ansible_user }}"@"{{ hostvars[groups["primary"][0]].ansible_host }}""'
+...

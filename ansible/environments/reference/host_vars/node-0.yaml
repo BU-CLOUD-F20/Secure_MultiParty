@@ -1,0 +1,4 @@
+---
+# Primary node
+ansible_host: <Specify_IP_or_FQDN>
+...

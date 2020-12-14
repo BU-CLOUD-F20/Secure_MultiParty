@@ -1,0 +1,4 @@
+---
+# Settings to access the old CAAD server
+ansible_host: caadlab-01.bu.edu
+...

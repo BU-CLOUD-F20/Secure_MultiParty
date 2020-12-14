@@ -1,0 +1,4 @@
+---
+# Settings to access the new CAAD server
+ansible_host: caad-10k.bu.edu
+...

@@ -1,0 +1,6 @@
+---
+# Settings for accessing Roberts desktop
+ansible_host: 128.197.176.153
+ansible_port: 5065
+ansible_ssh_private_key_file: /home/pwolfe/.ssh/pf_id_ecdsa
+...

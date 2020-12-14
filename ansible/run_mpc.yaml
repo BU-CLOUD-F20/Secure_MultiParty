@@ -1,0 +1,16 @@
+---
+- name: Run MPC using MPI
+  hosts: all
+  tasks: 
+    - name: Attempting to launch experiment...
+      # The pattern as described here assumes that the 
+      shell: 'mpirun --host localhost,"{{ hostvars[groups["secondary"][0]].ansible_default_ipv4.address }}","{{ hostvars[groups["secondary"][1]].ansible_default_ipv4.address }}" -np 3 exp-exchange 100 10 2 2'
+      args:
+        chdir: /mpc/experiments/
+      register: mpc_result
+      when: inventory_hostname in groups['primary']
+
+    - name: Output the MPI results
+      debug: msg="{{ mpc_result.stdout }}"
+      when: inventory_hostname in groups['primary']
+...

@@ -1,0 +1,4 @@
+---
+# Settings to access P-F CAAD desktop
+ansible_host: 128.197.176.103
+...

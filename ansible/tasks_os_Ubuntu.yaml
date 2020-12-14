@@ -1,0 +1,7 @@
+---
+# https://launchpad.net/~andreasgocht/+archive/ubuntu/scorep
+- name: Add scorep repository from PPA and install its signing key on Ubuntu target
+  apt_repository:
+    repo: ppa:andreasgocht/scorep
+  become: yes
+...

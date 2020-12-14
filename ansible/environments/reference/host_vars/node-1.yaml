@@ -1,0 +1,4 @@
+---
+# Secondary node 1
+ansible_host: <Specify_IP_or_FQDN>
+...

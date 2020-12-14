@@ -1,0 +1,15 @@
+# CAAD Research group hosts
+
+# Directly accessible
+[internet]
+caad-pf
+caad-rob
+caadlab-01
+
+# Only accessible from BU
+[intranet]
+caad-10k ansible_host=caad-10k.bu.edu ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q pwolfe@caadlab-01.bu.edu"'
+
+# Bastion host to use to access other hosts (first one is used)
+[bastion]
+caadlab-01

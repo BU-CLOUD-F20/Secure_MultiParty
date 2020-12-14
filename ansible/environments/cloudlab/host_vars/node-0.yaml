@@ -1,0 +1,4 @@
+---
+# Primary node
+ansible_host: ms1204.utah.cloudlab.us
+...

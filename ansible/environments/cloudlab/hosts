@@ -1,0 +1,10 @@
+# Hosts for CloudLab Bare-Metal Experiment
+
+# Launches the MPI programs for MPC
+[primary]
+node-0
+
+# Other MPI compute nodes for MPC program
+[secondary]
+node-1
+node-2
